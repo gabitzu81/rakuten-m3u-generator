@@ -6,8 +6,9 @@ on:
     inputs:
       debug_enabled:
         description: 'Run the build with tmate debugging enabled'
+        type: boolean
         required: false
-        default: False
+        default: false
 jobs:
   generate-m3u:
     runs-on: ubuntu-latest
@@ -32,9 +33,6 @@ jobs:
 
       - name: Generate m3u list
         run: python main.py > ./output/rakuten.m3u
-        env:
-          HTTP_PROXY: http://${{ secrets.PROXY_USERNAME }}:${{ secrets.PROXY_PASSWORD }}@${{ secrets.PROXY_IP }}:5009
-          HTTPS_PROXY: http://${{ secrets.PROXY_USERNAME }}:${{ secrets.PROXY_PASSWORD }}@${{ secrets.PROXY_IP }}:5009
 
       - name: Add updated list to repository
         uses: EndBug/add-and-commit@v9
